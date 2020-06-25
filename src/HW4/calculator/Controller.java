@@ -1,4 +1,4 @@
-package HW4;
+package HW4.calculator;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
