@@ -4,3 +4,35 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<VBox alignment="center" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HW4.calculator.Controller" stylesheets="@styles.css">
+    <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
+
+    <TextField fx:id="inputField" alignment="BASELINE_RIGHT" prefHeight="50" promptText="0" editable="false"/>
+    <GridPane alignment="center" hgap="10" vgap="10" VBox.vgrow="ALWAYS">
+        <padding><Insets bottom="10" top="10" /></padding>
+
+        <Button fx:id="btnDelete" maxHeight="Infinity" maxWidth="Infinity" text="Del" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" onAction="#deleteLast"/>
+        <Button fx:id="btnClear" maxHeight="Infinity" maxWidth="Infinity" text="  C  " GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" onAction="#clearText"/>
+        <Button fx:id="btnModule" maxHeight="Infinity" maxWidth="Infinity" text="Mod" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" onAction="#printPercent"/>
+        <Button fx:id="btnSqrt" maxHeight="Infinity" maxWidth="Infinity" text="Sqrt" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" onAction="#compSqrt"/>
+        <Button fx:id="btn1" maxHeight="Infinity" maxWidth="Infinity" text="1" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btn2" maxHeight="Infinity" maxWidth="Infinity" text="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btn3" maxHeight="Infinity" maxWidth="Infinity" text="3" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btnDiv" maxHeight="Infinity" maxWidth="Infinity" text="/" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btn4" maxHeight="Infinity" maxWidth="Infinity" text="4" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btn5" maxHeight="Infinity" maxWidth="Infinity" text="5" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btn6" maxHeight="Infinity" maxWidth="Infinity" text="6" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btnMult" maxHeight="Infinity" maxWidth="Infinity" text="*" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btn7" maxHeight="Infinity" maxWidth="Infinity" text="7" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btn8" maxHeight="Infinity" maxWidth="Infinity" text="8" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btn9" maxHeight="Infinity" maxWidth="Infinity" text="9" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btnMinus" maxHeight="Infinity" maxWidth="Infinity" text="-" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btn0" maxHeight="Infinity" maxWidth="Infinity" text="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btnDot" maxHeight="Infinity" maxWidth="Infinity" text="." GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btnPlus" maxHeight="Infinity" maxWidth="Infinity" text="+" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" onAction="#printDigit"/>
+        <Button fx:id="btnComp" maxHeight="Infinity" maxWidth="Infinity" text="=" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" onAction="#compute"/>
+
+    </GridPane>
+
+</VBox>
+
