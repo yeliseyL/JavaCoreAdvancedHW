@@ -9,9 +9,9 @@
     <TextArea fx:id="chatArea" editable="false" VBox.vgrow="ALWAYS"/>
     <HBox alignment="center" spacing="10">
 
-        <TextField fx:id="messageField" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="messageField" maxWidth="Infinity" HBox.hgrow="ALWAYS" onAction="#sendMessage"/>
 
-        <Button fx:id="sendBtn"  text="Send" onAction="#sendMessage"/>
+        <Button fx:id="sendBtn" text="Send" onAction="#sendMessage"/>
 
         <padding><Insets top="10 "/></padding>
 
