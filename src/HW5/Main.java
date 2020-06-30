@@ -4,7 +4,7 @@ public class Main {
     static final int SIZE = 10000000;
     static final int HALF_SIZE = SIZE / 2;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         arrayCalcTime();
         arrayCalcTimeMultithreaded();
     }
@@ -28,7 +28,7 @@ public class Main {
         System.out.println(end - start);
     }
 
-    public static void arrayCalcTimeMultithreaded() {
+    public static void arrayCalcTimeMultithreaded() throws InterruptedException {
         float[] arr = new float[SIZE];
         float[] halfArr1 = new float[HALF_SIZE];
         float[] halfArr2 = new float[HALF_SIZE];
@@ -57,6 +57,9 @@ public class Main {
 
         halfArr1Thread.start();
         halfArr2Thread.start();
+
+        halfArr1Thread.join();
+        halfArr2Thread.join();
 
         System.arraycopy(halfArr1, 0, arr, 0, HALF_SIZE);
         System.arraycopy(halfArr2, 0, arr, HALF_SIZE, HALF_SIZE);
