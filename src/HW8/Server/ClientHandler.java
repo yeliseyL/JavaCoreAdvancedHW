@@ -3,7 +3,10 @@ package HW8.Server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.util.concurrent.TimeoutException;
 
 public class ClientHandler {
     Server server;
@@ -24,6 +27,7 @@ public class ClientHandler {
                 try {
                     //auth cycle
                     while (true) {
+                        socket.setSoTimeout(120_000);
                         String str = in.readUTF();
                         if (str.startsWith("/auth ")) {
                             String[] token = str.split("\\s");
@@ -33,38 +37,65 @@ public class ClientHandler {
                             String newNick = server
                                     .getAuthService()
                                     .getNicknameByLoginAndPassword(token[1], token[2]);
+                            login = token[1];
+
                             if (newNick != null) {
-                                sendMessage("/authok " + newNick);
-                                nickname = newNick;
-                                login = token[1];
-                                server.subscribe(this);
-                                System.out.printf("Client %s connected %n", nickname);
-                                break;
+                                if (!server.isLoginAuthorized(login)) {
+                                    sendMessage("/authok " + newNick);
+                                    nickname = newNick;
+                                    server.subscribe(this);
+                                    System.out.printf("Client %s connected %n", nickname);
+                                    break;
+                                } else {
+                                    sendMessage("This login has been already authorized.");
+                                }
                             } else {
-                                sendMessage("Wrong login or password!");
+                                sendMessage("Wrong login or password!\n");
                             }
                         }
-                        server.broadcastMessage(str);
+                        if (str.startsWith("/reg ")) {
+                            String[] token = str.split("\\s");
+                            if(token.length < 4) {
+                                continue;
+                            }
+                            boolean b = server.getAuthService().registration(token[1], token[2], token[3]);
+                            if (b) {
+                                sendMessage("/regresult ok");
+                            } else {
+                                sendMessage("/regresult failed");
+                            }
+                        }
                     }
                     //work cycle
                     while (true) {
+                        socket.setSoTimeout(0);
                         String str = in.readUTF();
-                        if (str.equals("/end")) {
-                            out.writeUTF("/end");
-                            break;
-                        }
-                        if (str.startsWith("/w ")) {
-                            String[] strArr = str.split("\\s+");
-                            StringBuilder strSb = new StringBuilder();
-                            for (int i = 2; i < strArr.length; i++) {
-                                strSb.append(strArr[i] + " ");
+                        if (str.startsWith("/")) {
+                            if (str.equals("/end")) {
+                                out.writeUTF("/end");
+                                break;
                             }
-                            String message = strSb.toString();
-                            server.sendPrivateMessage(strArr[1], message);
+
+                            if (str.startsWith("/w ")) {
+                                String[] token = str.split("\\s", 3);
+                                if (token.length < 3) {
+                                    continue;
+                                }
+                                server.sendPrivateMessage(this, token[1], token[2]);
+                            }
                         } else {
-                            server.broadcastMessage(str);
+                            server.broadcastMessage(this, str);
                         }
+
                     }
+                } catch (SocketTimeoutException e) {
+                    sendMessage("Timeout, connection terminated!");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    sendMessage("/timeout");
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
@@ -93,5 +124,9 @@ public class ClientHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getLogin() {
+        return login;
     }
 }
